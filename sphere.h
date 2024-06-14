@@ -25,25 +25,25 @@ class sphere : public hittable
 
         if (discriminant < 0) return record();
 
-        //roots exist; if both lie out of range return false, else set t to be the one in range
+        //roots exist; if both lie out of range return false record, else set t to be the one in range
         double t;
         double t1 = (h - sqrt(discriminant))/a;
         double t2 = (h + sqrt(discriminant))/a;
 
-        // if (!i.contains(t1) && !i.contains(t2))
-        // {
-        //     return record();
-        // }
-        // else
-        // {
-        //     t = (!i.contains(t1)) ? t2 : t1;
-        // }
-        t = t2;
-        if (!i.contains(t))
+        if (!i.contains(t1) && !i.contains(t2))
         {
-            t = t1;
-            if (!i.contains(t)) return record();
+            return record();
         }
+        else
+        {
+            t = (!i.contains(t1)) ? t2 : t1;
+        }
+        // t = t2;
+        // if (!i.contains(t))
+        // {
+        //     t = t1;
+        //     if (!i.contains(t)) return record();
+        // }
 
         record hit;
         hit.success = true;

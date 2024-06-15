@@ -109,4 +109,16 @@ inline vec3 cross(const vec3& u, const vec3& v)
     return vec3(u.y()*v.z() - u.z()*v.y(), u.z()*v.x() - u.x()*v.z(), u.x()*v.y() - u.y()*v.x());
 }
 
+inline static vec3 rand_vec(double min = 0, double max = 1)
+{
+    return vec3(random(min, max), random(min, max), random(min, max));
+}
+
+vec3 rand_diffused(const vec3 normal)
+{
+    vec3 unit_dir = rand_vec(0, 1).normalize();
+    if (dot(unit_dir, normal) > 0) return unit_dir;
+    else return -unit_dir;
+}
+
 #endif

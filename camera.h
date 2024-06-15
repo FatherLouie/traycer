@@ -9,7 +9,8 @@ class camera
     public:
     int image_height;
     double aspect_ratio;
-    int sample_size;
+    int pixel_sample_size;
+    int ray_reflection_count;
 
     void render(const hittable& world)
     {
@@ -18,15 +19,16 @@ class camera
 
         for(int i = 0; i < image_height; i += 1)
         {
+            clog << "Progress: " << i << "/" << image_height << '\n' << flush;
             for(int j = 0; j < image_width; j += 1)
             {
                 colour pixel_colour = colour(0, 0, 0);
-                for (int k = 0; k < sample_size; k += 1)
+                for (int k = 0; k < pixel_sample_size; k += 1)
                 {
                     ray r = random_ray(j, i);
-                    pixel_colour += ray_colour(r, world);
+                    pixel_colour += ray_colour(r, world, ray_reflection_count);
                 }
-                pixel_colour /= double(sample_size);
+                pixel_colour /= double(pixel_sample_size);
                 write_colour(pixel_colour);
             }
         }
@@ -57,12 +59,14 @@ class camera
         return ray(camera_pos, rand_pt - camera_pos);
     }
 
-    colour ray_colour(ray r, const hittable& w)
+    colour ray_colour(ray r, const hittable& w, double recurrence)
     {
-        record rec = w.hit(r, interval(0, infinity));
+        if (recurrence <= 0) return colour();
+        record rec = w.hit(r, interval(0.001, infinity));
         if (rec.success)
         {
-            return 0.5*(rec.normal + colour(1.0, 1.0, 1.0));
+            ray diffused_ray = ray(rec.incidence, rand_diffused(rec.normal));
+            return 0.9*ray_colour(diffused_ray, w, recurrence - 1);
         }
         else
         {

@@ -10,6 +10,7 @@ int main()
     camera cam;
     cam.aspect_ratio = 16.0/9.0;
     cam.image_height = 360;
+    cam.sample_size = 1;
 
     hittable_list world;
     world.add(make_shared<sphere>(point(0, -100.5, -1), 100));

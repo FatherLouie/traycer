@@ -22,6 +22,13 @@ class interval
         return (x >= (*this).min) && (x <= (*this).max);
     }
 
+    double constrain(double x) const
+    {
+        if (x < (*this).min) return (*this).min;
+        else if (x > (*this).max) return (*this).max;
+        else return x;
+    }
+
     static const interval empty, universe;
 };
 

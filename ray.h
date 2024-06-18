@@ -1,10 +1,6 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include"vec3.h"
-#include<iostream>
-using namespace std;
-
 class ray
 {
     vec3 origin;

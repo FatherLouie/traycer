@@ -1,9 +1,6 @@
-#include"header.h"
+#include"classes.h"
 #include"sphere.h"
-#include"hittable.h"
 #include"camera.h"
-
-colour ray_colour(const ray, const hittable&);
 
 int main()
 {

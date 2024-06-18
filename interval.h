@@ -1,6 +1,7 @@
 #ifndef INTERVAL_H
 #define INTERVAL_H
-#include"header.h"
+
+#include "utilities.h"
 
 class interval
 {

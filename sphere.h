@@ -1,8 +1,7 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include"hittable.h"
-using point = vec3;
+#include "classes.h"
 
 class sphere : public hittable
 {

@@ -1,8 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include"header.h"
-#include"hittable.h"
+#include "classes.h"
 
 class camera
 {
@@ -55,7 +54,7 @@ class camera
 
     ray random_ray(int x, int y)
     {
-        point rand_pt = topleft_pixel + (x + random(-0.5, 0.5))*del_x + (y + random(-0.5, 0.5))*del_y;
+        point rand_pt = topleft_pixel + (x + random_double(-0.5, 0.5))*del_x + (y + random_double(-0.5, 0.5))*del_y;
         return ray(camera_pos, rand_pt - camera_pos);
     }
 
@@ -65,8 +64,8 @@ class camera
         record rec = w.hit(r, interval(0.001, infinity));
         if (rec.success)
         {
-            ray diffused_ray = ray(rec.incidence, rand_diffused(rec.normal));
-            return 0.9*ray_colour(diffused_ray, w, recurrence - 1);
+            vec3 random_dir = random_diffused(rec.normal) + random_vec().normalize();
+            return 0.5*ray_colour(ray(rec.incidence, random_dir), w, recurrence - 1);
         }
         else
         {

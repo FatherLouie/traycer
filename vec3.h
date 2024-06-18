@@ -1,14 +1,12 @@
 #ifndef VEC3_H
 #define VEC3_H
 
-#include<iostream>
-#include<cmath>
-using namespace std;
+#include "utilities.h"
 
 class vec3
 {
-    public:
     double xyz[3];
+    public:
 
     vec3(double p = 0, double q = 0, double r = 0)
     {
@@ -109,15 +107,15 @@ inline vec3 cross(const vec3& u, const vec3& v)
     return vec3(u.y()*v.z() - u.z()*v.y(), u.z()*v.x() - u.x()*v.z(), u.x()*v.y() - u.y()*v.x());
 }
 
-inline static vec3 rand_vec(double min = 0, double max = 1)
+inline static vec3 random_vec(double min = 0, double max = 1)
 {
-    return vec3(random(min, max), random(min, max), random(min, max));
+    return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
 }
 
-vec3 rand_diffused(const vec3 normal)
+vec3 random_diffused(const vec3 normal)
 {
-    vec3 unit_dir = rand_vec(0, 1).normalize();
-    if (dot(unit_dir, normal) > 0) return unit_dir;
+    vec3 unit_dir = random_vec(0, 1).normalize();
+    if (dot(unit_dir, normal) > double(0)) return unit_dir;
     else return -unit_dir;
 }
 

@@ -1,14 +1,6 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
-#include<vector>
-#include<memory>
-using namespace std;
-
-#include"ray.h"
-#include"vec3.h"
-#include"interval.h"
-
 class record
 {
     public:

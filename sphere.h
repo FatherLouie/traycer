@@ -1,18 +1,17 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include "classes.h"
-
 class sphere : public hittable
 {
     point centre;
     double radius;
 
     public:
-    sphere(point p = point(0, 0, 0), double r = 1.0)
+    sphere(point p = point(0, 0, 0), double r = 1.0, shared_ptr<material> m = nullptr)
     {
         centre = p;
         radius = r;
+        finish = m;
     }
 
     record hit(const ray r, interval i) const
@@ -29,27 +28,16 @@ class sphere : public hittable
         double t1 = (h - sqrt(discriminant))/a;
         double t2 = (h + sqrt(discriminant))/a;
 
-        if (!i.contains(t1) && !i.contains(t2))
-        {
-            return record();
-        }
-        else
-        {
-            t = (!i.contains(t1)) ? t2 : t1;
-        }
-        // t = t2;
-        // if (!i.contains(t))
-        // {
-        //     t = t1;
-        //     if (!i.contains(t)) return record();
-        // }
+        if (!i.contains(t1) && !i.contains(t2)) return record();
+        else t = (!i.contains(t1)) ? t2 : t1;
 
         record hit;
         hit.success = true;
         hit.incidence = r.point(t);
         point outer_normal = (r.point(t) - (*this).centre).normalize();
-        hit.set_normal(r, outer_normal);
+        hit.normal = outer_normal;
         hit.parameter = t;
+        hit.outside = dot(r.dir(), outer_normal) < 0;
 
         return hit;
     }

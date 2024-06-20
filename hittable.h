@@ -1,41 +1,19 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
-class record
-{
-    public:
-    bool success;
-    vec3 incidence;
-    vec3 normal;
-    double parameter;
-    bool outside;
-
-    record()
-    {
-        success = false;
-        incidence = vec3();
-        normal = vec3();
-        parameter = 0;
-        outside = true;
-    }
-
-    void set_normal(const ray r, const vec3 outer_normal)
-    {
-        (*this).outside = dot(r.dir(), outer_normal) < 0;
-        (*this).normal = (*this).outside ? outer_normal : -outer_normal;
-    }
-};
-
-//--------------------------------------------------------------------------------------------------------------------------
-
 class hittable
 {
     public:
+    shared_ptr<material> finish;
     virtual ~hittable() = default;
     virtual record hit(const ray r, interval i) const = 0;
 };
 
+
+
 //--------------------------------------------------------------------------------------------------------------------------
+
+
 
 class hittable_list : public hittable
 {
@@ -63,6 +41,7 @@ class hittable_list : public hittable
             if (current_rec.success)
             {
                 rec = current_rec;
+                rec.object = hptr;
                 t_largest = current_rec.parameter;
             }
         }
@@ -70,5 +49,9 @@ class hittable_list : public hittable
         return rec;
     }
 };
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------
 
 #endif

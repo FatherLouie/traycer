@@ -64,8 +64,8 @@ class camera
         record rec = w.hit(r, interval(0.001, infinity));
         if (rec.success)
         {
-            vec3 random_dir = random_diffused(rec.normal) + random_vec().normalize();
-            return 0.5*ray_colour(ray(rec.incidence, random_dir), w, recurrence - 1);
+            ray reflected = (*(*rec.object).finish).scatter(r, rec);
+            return ((*(*rec.object).finish).albedo)*ray_colour(reflected, w, recurrence - 1);
         }
         else
         {

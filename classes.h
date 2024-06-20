@@ -5,6 +5,8 @@
 #include "vec3.h"
 #include "colour.h"
 #include "ray.h"
+#include "record.h"
+#include "material.h"
 #include "hittable.h"
 
 using point = vec3;

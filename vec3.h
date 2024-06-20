@@ -1,8 +1,6 @@
 #ifndef VEC3_H
 #define VEC3_H
 
-#include "utilities.h"
-
 class vec3
 {
     double xyz[3];
@@ -60,6 +58,12 @@ class vec3
     {
         return (*this) /= (*this).length();
     }
+
+    bool near_zero() const
+    {
+        double s = 1e-8;
+        return ((fabs(xyz[0]) < s) && (fabs(xyz[1]) < s) && (fabs(xyz[2]) < s));
+    }
 };
 
 ostream& operator << (ostream& ost, const vec3& v)
@@ -110,13 +114,6 @@ inline vec3 cross(const vec3& u, const vec3& v)
 inline static vec3 random_vec(double min = 0, double max = 1)
 {
     return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
-}
-
-vec3 random_diffused(const vec3 normal)
-{
-    vec3 unit_dir = random_vec(0, 1).normalize();
-    if (dot(unit_dir, normal) > double(0)) return unit_dir;
-    else return -unit_dir;
 }
 
 #endif

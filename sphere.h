@@ -35,9 +35,9 @@ class sphere : public hittable
         hit.success = true;
         hit.incidence = r.point(t);
         point outer_normal = (r.point(t) - (*this).centre).normalize();
+        hit.set_normal(r, outer_normal);
         hit.normal = outer_normal;
         hit.parameter = t;
-        hit.outside = dot(r.dir(), outer_normal) < 0;
 
         return hit;
     }

@@ -22,11 +22,11 @@ class record
         outside = true;
     }
 
-    // void set_normal(const ray r, const vec3 outer_normal)
-    // {
-    //     (*this).outside = dot(r.dir(), outer_normal) < 0;
-    //     (*this).normal = (*this).outside ? outer_normal : -outer_normal;
-    // }
+    void set_normal(const ray r, const vec3 outer_normal)
+    {
+        (*this).outside = dot(r.dir(), outer_normal) < 0;
+        (*this).normal = (*this).outside ? outer_normal : -outer_normal;
+    }
 };
  
 #endif

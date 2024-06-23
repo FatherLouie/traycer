@@ -6,8 +6,8 @@
 #include "colour.h"
 #include "ray.h"
 #include "record.h"
-#include "material.h"
-#include "hittable.h"
+#include "materials.h"
+#include "hittables.h"
 
 using point = vec3;
 using colour = vec3;

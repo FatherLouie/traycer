@@ -9,7 +9,7 @@ class record
     bool success;
     shared_ptr<hittable> object;
     vec3 incidence;
-    vec3 normal;
+    vec3 normal;    //Ensure normal of record is a unit vector always!!
     double parameter;
     bool outside;
 

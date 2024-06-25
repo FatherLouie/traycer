@@ -45,3 +45,7 @@ The dielectric class has the property refractive_index, which deals with ray sca
 
 Contains the implementation of the camera. Has properties that define the image resolution, apsect ratio, camera position in the scene, it's field of view, and lens specifications like the depth of field and focal length. All of these parameters can be changed from outside the class, and more specifically they are set in the [main file](https://github.com/FatherLouie/traycer/blob/main/zimage.cpp).<br/><br/>
 The camera also sets up the viewport with appropriate dimensions for viewing the scene and sending appropriate rays to eeach pixel. The render function puts all the pieces together to output the desired scene. Redirecting the output to a `.ppm` file enables the creation of the image.
+
+### [utilities.h](https://github.com/FatherLouie/traycer/blob/main/utilities.h) & [classes.h](https://github.com/FatherLouie/traycer/blob/main/classes.h)
+
+Important C++ libraries and created classes included here to avoid multiple inclusions in every file.

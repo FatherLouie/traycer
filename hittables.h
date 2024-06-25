@@ -58,11 +58,11 @@ class hittable_list : public hittable
 
 class sphere : public hittable
 {
-    point centre;
+    vec3 centre;
     double radius;
 
     public:
-    sphere(point p = point(0, 0, 0), double r = 1.0, shared_ptr<material> m = nullptr)
+    sphere(vec3 p = vec3(0, 0, 0), double r = 1.0, shared_ptr<material> m = nullptr)
     {
         centre = p;
         radius = r;
@@ -89,7 +89,7 @@ class sphere : public hittable
         record hit;
         hit.success = true;
         hit.incidence = r.point(t);
-        point outer_normal = (r.point(t) - (*this).centre).normalize();
+        vec3 outer_normal = (r.point(t) - (*this).centre).normalize();
         hit.set_normal(r, outer_normal);
         hit.parameter = t;
 

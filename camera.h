@@ -6,10 +6,17 @@
 class camera
 {
     public:
+        // Output details
     int image_height;
     double aspect_ratio;
     int pixel_sample_size;
     int ray_reflection_count;
+        // Camera position
+    double fov;
+    vec3 lookfrom, lookat, up;
+        // Lens properties
+    double defocus_angle;
+    double focal_length;
 
     void render(const hittable& world)
     {
@@ -35,27 +42,39 @@ class camera
 
     private:
     int image_width;
-    point camera_pos = point(0, 0, 0);
-    double focal_length = 1.0;
 
     point topleft_pixel;
-    vec3 del_x, del_y;
+    vec3 del_u, del_v;
+    vec3 u, v, w;
 
     void viewport()
     {
         image_width = image_height*aspect_ratio;
-        double viewport_height = 2.0;
+        double viewport_height = 2*tan(degrees_to_radians(fov)/2)*focal_length;
         double viewport_width = viewport_height * (double(image_width)/double(image_height));
 
-        topleft_pixel = point(-0.5*(viewport_width), 0.5*(viewport_height), -focal_length) + del_x + del_y;
-        del_x = vec3((viewport_width/double(image_width)), 0, 0);
-        del_y = vec3(0, -(viewport_height/double(image_height)), 0);
+        w = (lookfrom - lookat).normalize();
+        v = ((w == up) || (w == -up)) ? vec3(0, 0, 1) : cross(w, cross(up, w)).normalize();
+        u = cross(v, w).normalize();
+
+        del_u = (viewport_width/double(image_width))*u;
+        del_v = (viewport_height/double(image_height))*(-v);
+        topleft_pixel = lookfrom - (focal_length*w) + (viewport_width/2.0)*(-u) + (viewport_height/2.0)*(v) + (del_u + del_v)/2.0;
     }
 
     ray random_ray(int x, int y)
     {
-        point rand_pt = topleft_pixel + (x + random_double(-0.5, 0.5))*del_x + (y + random_double(-0.5, 0.5))*del_y;
-        return ray(camera_pos, rand_pt - camera_pos);
+        double blur_radius = focal_length*tan(degrees_to_radians(defocus_angle/2.0));
+        vec3 rand_org;
+        do
+        {
+            vec3 rand_vec = random_double(-blur_radius, blur_radius)*u + random_double(-blur_radius, blur_radius)*v;
+            rand_org = lookfrom + rand_vec;
+        }
+        while ((rand_org - lookfrom).length() > blur_radius);
+        
+        point rand_pt = topleft_pixel + (x + random_double(-0.5, 0.5))*del_u + (y + random_double(-0.5, 0.5))*del_v;
+        return ray(rand_org, rand_pt - rand_org);
     }
 
     colour ray_colour(ray r, const hittable& w, double recurrence)

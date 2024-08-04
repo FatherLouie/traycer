@@ -1,7 +1,14 @@
 # Ray Tracing
 
 This is a project to build a basic ray tracer to render simple images and scenes based on user input.
-In the [main file](https://github.com/FatherLouie/traycer/blob/main/zimage.cpp), the user can specify the position, size and material of each object in the scene. The user has control over the image resolution, camera position, and camera lens properties that must be specified before rendering the scene. Currently, the user can render spheres, cylinders, cones, pyramids and prisms each with a texture of matte(lambertian), metallic, dielectric(say glass), or a light source(emitter).
+
+## Problem Statement
+
+Given a scene, i.e. the positions of a camera, light sources, and objects like spheres and their respective colours and reflective properties, render the image appropriately.
+
+## Achieved Solution
+
+In the [main file](https://github.com/FatherLouie/traycer/blob/main/zimage.cpp), the user can specify the position, size and material of each object in the scene. The user has control over the image resolution, camera position, and certain camera lens properties that must be specified before rendering the scene. Currently, the user can render spheres, cylinders, cones, pyramids and prisms each with a texture of matte(lambertian), metallic, dielectric(say glass), or a light source(emitter).
 
 ## Project Files
 
@@ -52,7 +59,7 @@ Defines a superclass material, which implements reflection and refraction that d
 ### [camera.h](https://github.com/FatherLouie/traycer/blob/main/camera.h)
 
 Contains the implementation of the camera. Has properties that define the image resolution, apsect ratio, camera position in the scene, it's field of view, and lens specifications like the depth of field and focal length. All of these parameters can be changed from outside the class, and more specifically they are set in the [main file](https://github.com/FatherLouie/traycer/blob/main/zimage.cpp).<br/><br/>
-The camera also sets up the viewport with appropriate dimensions for viewing the scene and sending appropriate rays to each pixel.<br/><br/>
+Rays first originate from the camera lens towards each pixel on a viewport and the ray is scattered appropriately whenever an object is hit. The resulting colour(as seen by the camera, of course) is then computed.<br/><br/>
 The render function puts all the pieces together to output the desired scene. Redirecting the output to a `.ppm` file enables the creation of the image.
 
 ### [utilities.h](https://github.com/FatherLouie/traycer/blob/main/utilities.h) & [classes.h](https://github.com/FatherLouie/traycer/blob/main/classes.h)

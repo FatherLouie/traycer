@@ -1,10 +1,7 @@
 # Ray Tracing
 
 This is a project to build a basic ray tracer to render simple images and scenes based on user input.
-
-## Description
-
-The current code can render spheres of 3 different materials- matte (lambertian), metal, and glass (any dielectric in general). In the [main file](https://github.com/FatherLouie/traycer/blob/main/zimage.cpp), the user can specify the position, size and material of each sphere in the scene. The user has control over the image resolution, camera position, and camera lens properties that must be specified before rendering the scene. 
+In the [main file](https://github.com/FatherLouie/traycer/blob/main/zimage.cpp), the user can specify the position, size and material of each object in the scene. The user has control over the image resolution, camera position, and camera lens properties that must be specified before rendering the scene. Currently, the user can render spheres, cylinders, cones, pyramids and prisms each with a texture of matte(lambertian), metallic, dielectric(say glass), or a light source(emitter).
 
 ## Project Files
 

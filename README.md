@@ -38,11 +38,11 @@ Two classes, polygon and circle have been implemented. Each have functions thaty
 
 Defines a superclass hittable, from which subclasses representing objects with varying geometries in the scene can be derived. Whenever a ray hits a hittable, a record is generated containing the necesssary details.<br/><br/>
 
-**Sphere:** Implements the sphere, with the math required to calculate the boundaries of the sphere and reflect the rays appropriately.<br/>
-**Cylinder:** Implements a finite length cylinder, with calculations regarding the two flat faces and the curved face done separately.<br/>
-**Cone:** Implements a finite length cone, with the lateral and base faces treated separately. Both the cylinder and cone use the circle class.<br/>
-**Prism:** Implements the prism, where any polygon can be defined as the base and a parallel face would be the top. Lateral faces are rectangular.<br/>
-**Puramid:** Implements the pyramid, with any polygon as the base and a point where the triangular lateral faces meet.<br/>
+  ***Sphere:** Implements the sphere, with the math required to calculate the boundaries of the sphere and reflect the rays appropriately.<br/>
+  ***Cylinder:** Implements a finite length cylinder, with calculations regarding the two flat faces and the curved face done separately.<br/>
+  ***Cone:** Implements a finite length cone, with the lateral and base faces treated separately. Both the cylinder and cone use the circle class.<br/>
+  ***Prism:** Implements the prism, where any polygon can be defined as the base and a parallel face would be the top. Lateral faces are rectangular.<br/>
+  ***Pyramid:** Implements the pyramid, with any polygon as the base and a point where the triangular lateral faces meet.<br/>
 
 ### [materials.h](https://github.com/FatherLouie/traycer/blob/main/materials.h)
 

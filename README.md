@@ -49,7 +49,7 @@ Defines a superclass hittable, from which subclasses representing objects with v
 Defines a superclass material, which implements reflection and refraction that derived materials can inherit. The virtual scatter function is separately defined for each material, to calculate the scattered ray given the incident. The emit function associated with each material determines if the source emits light.<br/><br/>
 **Lambertian:** simulates a matte finish, with the scatter function implemented to reutrn rays in all directions.<br/>
 **Metal:** Has an additional property fuzz, that indicates the smoothness of the metal finish, with 0 for perfectly smooth, and 1 for the opposite. <br/>
-**Dielectric:** Has the property refractive_index, which deals with ray scattering when the medium changes and light refracts.<br/><br/>
+**Dielectric:** Has the property refractive_index, which deals with ray scattering when the medium changes and light refracts.<br/>
 **Emitter:** Simulates a light source by giving off light of the specified colour.
 
 ### [camera.h](https://github.com/FatherLouie/traycer/blob/main/camera.h)

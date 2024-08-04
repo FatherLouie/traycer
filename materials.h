@@ -6,7 +6,15 @@ class material
     public:
     vec3 albedo;
     virtual ~material() = default;
-    virtual ray scatter(const ray r_in, const record rec) const = 0;
+    virtual ray scatter(const ray r_in, const record rec) const
+    {
+        return ray();
+    }
+
+    virtual vec3 emit() const
+    {
+        return vec3(0, 0, 0);
+    }
 
     inline vec3 reflect(const vec3 ray_dir, const vec3 normal) const
     {
@@ -111,6 +119,26 @@ class dielectric : public material
             refracted_dir = refract(r_in.dir().normalize(), rec.normal, rel_ref_index);
         }
         return ray(rec.incidence, refracted_dir);
+    }
+};
+
+
+
+// -------------------------------------------------------------------------------------------------------------------------
+
+
+
+class emitter : public material
+{
+    public:
+    emitter(vec3 c = vec3())
+    {
+        albedo = c;
+    }
+
+    vec3 emit() const
+    {
+        return albedo;
     }
 };
 

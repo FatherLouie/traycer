@@ -11,6 +11,7 @@ class camera
     double aspect_ratio;
     int pixel_sample_size;
     int ray_reflection_count;
+    colour background;
         // Camera position
     double fov;
     vec3 lookfrom, lookat, up;
@@ -80,17 +81,15 @@ class camera
     colour ray_colour(ray r, const hittable& w, double recurrence)
     {
         if (recurrence <= 0) return colour();
+
         record rec = w.hit(r, interval(0.001, infinity));
-        if (rec.success)
-        {
-            ray reflected = (*(*rec.object).finish).scatter(r, rec);
-            return ((*(*rec.object).finish).albedo)*ray_colour(reflected, w, recurrence - 1);
-        }
+        if (!rec.success) return background;
+
+        ray scattered = (*(*rec.object).finish).scatter(r, rec);
+        if (scattered.dir() == vec3(0, 0, 0)) return (*(*rec.object).finish).emit();
         else
         {
-            vec3 unit_direction = (r.dir()).normalize();
-            double frac = 0.5*(unit_direction.y() + 1.0);
-            return (1.0 - frac)*colour(1.0, 1.0, 1.0) + (frac)*colour(0.5, 0.7, 1.0);
+            return ((*(*rec.object).finish).albedo)*ray_colour(scattered, w, recurrence - 1);
         }
     }
 };

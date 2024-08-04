@@ -7,6 +7,7 @@
 #include "ray.h"
 #include "record.h"
 #include "materials.h"
+#include "polygon.h"
 #include "hittables.h"
 
 using point = vec3;

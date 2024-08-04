@@ -40,7 +40,7 @@ Defines a superclass hittable, from which subclasses representing objects with v
 
 **Sphere:** Implements the sphere, with the math required to calculate the boundaries of the sphere and reflect the rays appropriately.<br/>
 **Cylinder:** Implements a finite length cylinder, with calculations regarding the two flat faces and the curved face done separately.<br/>
-**Cone:** Implements a finite length cone, with the lateral and base faces treated separately. Both the cylinder and cone make use of the circle class.<br/>
+**Cone:** Implements a finite length cone, with the lateral and base faces treated separately. Both the cylinder and cone use the circle class.<br/>
 **Prism:** Implements the prism, where any polygon can be defined as the base and a parallel face would be the top. Lateral faces are rectangular.<br/>
 **Puramid:** Implements the pyramid, with any polygon as the base and a point where the triangular lateral faces meet.<br/>
 
@@ -49,7 +49,7 @@ Defines a superclass hittable, from which subclasses representing objects with v
 Defines a superclass material, which implements reflection and refraction that derived materials can inherit. The virtual scatter function is separately defined for each material, to calculate the scattered ray given the incident. The emit function associated with each material determines if the source emits light.<br/><br/>
 **Lambertian:** simulates a matte finish, with the scatter function implemented to reutrn rays in all directions.<br/>
 **Metal:** Has an additional property fuzz, that indicates the smoothness of the metal finish, with 0 for perfectly smooth, and 1 for the opposite. <br/>
-**Dielectric:** Has the property refractive_index, which deals with ray scattering when the medium changes and light refracts.
+**Dielectric:** Has the property refractive_index, which deals with ray scattering when the medium changes and light refracts.<br/><br/>
 **Emitter:** Simulates a light source by giving off light of the specified colour.
 
 ### [camera.h](https://github.com/FatherLouie/traycer/blob/main/camera.h)

@@ -28,23 +28,35 @@ Contains the class interval, which is equivalent to an interval between two numb
 
 Deifnes a class that contains all relevant information when a ray hits an object in our scene. A null record is also defined, in case the ray does not hit any object.
 
+### [polygon.h](https://github.com/FatherLouie/traycer/blob/main/polygon.h)
+
+Two classes, polygon and circle have been implemented. Each have functions thaty determine of an arbitrary point lies inside or outside the shape.<br/>
+**Polygon:** Defined by the normal to the plane in which it lies, the number of sides it has, and an arbitrary point in its interior, say its centroid. We can then define the polygon by adding appropriate number of verices. A regular polygon can also be generated given one vertex to start from.
+**Circle:** Defined by the plane in which it lies, its centre and radius.
+
 ### [hittables.h](https://github.com/FatherLouie/traycer/blob/main/hittables.h)
 
-Defines a superclass hittable, from which subclasses representing objects in the scene can be derived.<br/><br/>
-The hittable_list class is intended to hold all the hittables that are to be rendered.<br/><br/>
-The sphere class implements the sphere, with the hit method calculating it's boundaries and generating a record when a ray hits a sphere.
+Defines a superclass hittable, from which subclasses representing objects with varying geometries in the scene can be derived. Whenever a ray hits a hittable, a record is generated containing the necesssary details.<br/><br/>
+
+**Sphere:** Implements the sphere, with the math required to calculate the boundaries of the sphere and reflect the rays appropriately.<br/>
+**Cylinder:** Implements a finite length cylinder, with calculations regarding the two flat faces and the curved face done separately.<br/>
+**Cone:** Implements a finite length cone, with the lateral and base faces treated separately. Both the cylinder and cone make use of the circle class.<br/>
+**Prism:** Implements the prism, where any polygon can be defined as the base and a parallel face would be the top. Lateral faces are rectangular.<br/>
+**Puramid:** Implements the pyramid, with any polygon as the base and a point where the triangular lateral faces meet.<br/>
 
 ### [materials.h](https://github.com/FatherLouie/traycer/blob/main/materials.h)
 
-Defines a superclass material, which implements reflection and refraction that derived materials can inherit. The virtual scatter function is separately defined for each material, to calculate the scattered ray given the incident.<br/><br/>
-The lambertian class simulates a matte finish, with the scatter function implemented to reutrn rays in all directions.<br/>
-The metal class has an additional property fuzz, that indicates the smoothness of the metal finish, with 0 for perfectly smooth, and 1 for the opposite. <br/>
-The dielectric class has the property refractive_index, which deals with ray scattering when the medium changes and light refracts.
+Defines a superclass material, which implements reflection and refraction that derived materials can inherit. The virtual scatter function is separately defined for each material, to calculate the scattered ray given the incident. The emit function associated with each material determines if the source emits light.<br/><br/>
+**Lambertian:** simulates a matte finish, with the scatter function implemented to reutrn rays in all directions.<br/>
+**Metal:** Has an additional property fuzz, that indicates the smoothness of the metal finish, with 0 for perfectly smooth, and 1 for the opposite. <br/>
+**Dielectric:** Has the property refractive_index, which deals with ray scattering when the medium changes and light refracts.
+**Emitter:** Simulates a light source by giving off light of the specified colour.
 
 ### [camera.h](https://github.com/FatherLouie/traycer/blob/main/camera.h)
 
 Contains the implementation of the camera. Has properties that define the image resolution, apsect ratio, camera position in the scene, it's field of view, and lens specifications like the depth of field and focal length. All of these parameters can be changed from outside the class, and more specifically they are set in the [main file](https://github.com/FatherLouie/traycer/blob/main/zimage.cpp).<br/><br/>
-The camera also sets up the viewport with appropriate dimensions for viewing the scene and sending appropriate rays to eeach pixel. The render function puts all the pieces together to output the desired scene. Redirecting the output to a `.ppm` file enables the creation of the image.
+The camera also sets up the viewport with appropriate dimensions for viewing the scene and sending appropriate rays to each pixel.<br/><br/>
+The render function puts all the pieces together to output the desired scene. Redirecting the output to a `.ppm` file enables the creation of the image.
 
 ### [utilities.h](https://github.com/FatherLouie/traycer/blob/main/utilities.h) & [classes.h](https://github.com/FatherLouie/traycer/blob/main/classes.h)
 
